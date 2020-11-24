@@ -125,7 +125,7 @@ def phase(I, support, params, good_pix = None, sample_known = None):
             out[j]['eMod']       += info['eMod']
             out[j]['eCon']       += info['eCon']
             
-            if 'background' in info.keys():
+            if 'background' in list(info.keys()):
                 out[j]['background']  = params['phasing_parameters']['background'] = info['background'] * good_pix
                 out[j]['B_rav']       = info['r_av']
     

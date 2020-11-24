@@ -5,7 +5,7 @@ import numpy as np
 import signal
 import sys
 
-import io_utils
+from . import io_utils
 
 def crop_to_nonzero(arrayin, mask=None):
     """Crop arrayin to the smallest rectangle that contains all of the non-zero elements and return the result. If mask is given use that to determine non-zero elements.
@@ -353,7 +353,7 @@ class Show_input():
         #self.plot_efid.setTitle('Fidelity error l2norm:')
         
         ## Display the widget as a new window
-        print 'showing...'
+        print('showing...')
         w.show()
 
         ## Start the Qt event loop

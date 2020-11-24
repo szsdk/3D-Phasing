@@ -142,17 +142,17 @@ def read_output_h5(path):
     efids           = f['fidelity error'].value
     solid_unit      = f['sample init'].value
     solid_units_ret = f['sample retrieved'].value
-    if 'PRTF' in f.keys():
+    if 'PRTF' in list(f.keys()):
         T               = f['PRTF'].value
         T_rav           = f['PRTF radial average'].value
     else :
         T = T_rav = None
-    if 'PSD' in f.keys():
+    if 'PSD' in list(f.keys()):
         PSD               = f['PSD'].value
         PSD_rav           = f['PSD data'].value
     else :
         PSD = PSD_rav = None
-    if 'background radial average' in f.keys():
+    if 'background radial average' in list(f.keys()):
         B_rav           = f['background radial average'].value
     else :
         B_rav = None
@@ -193,7 +193,7 @@ def read_input_h5(fnam):
     support  = f['sample support'].value.astype(np.bool)
     good_pix = f['good pixels'].value.astype(np.bool)
     
-    if 'sample' in f.keys():
+    if 'sample' in list(f.keys()):
         solid_known = f['sample'].value
     else :
         solid_known = None
@@ -203,11 +203,11 @@ def read_input_h5(fnam):
     f.close()
 
     # read then pass the config file
-    import ConfigParser
-    import StringIO
-    config_file = StringIO.StringIO(config_file)
+    import configparser
+    import io
+    config_file = io.StringIO(config_file)
 
-    config = ConfigParser.ConfigParser()
+    config = configparser.ConfigParser()
     config.readfp(config_file)
     params = parse_parameters(config)
     return diff, support, good_pix, solid_known, params
@@ -269,5 +269,5 @@ def if_exists_del(fnam):
     # see if it exists and if so delete it 
     # (probably dangerous but otherwise this gets really anoying for debuging)
     if os.path.exists(fnam):
-        print '\n', fnam ,'file already exists, deleting the old one and making a new one'
+        print('\n', fnam ,'file already exists, deleting the old one and making a new one')
         os.remove(fnam)

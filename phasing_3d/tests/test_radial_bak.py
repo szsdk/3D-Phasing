@@ -7,7 +7,7 @@ afnumpy.arrayfire.set_device(2)
 
 def radial_symetry_af2(background, inds = None, tots = None, is_fft_shifted = True):
     if (inds is None) or (tots is None) :
-        print 'initialising...'
+        print('initialising...')
         i = np.fft.fftfreq(background.shape[0]) * background.shape[0]
         j = np.fft.fftfreq(background.shape[1]) * background.shape[1]
         k = np.fft.fftfreq(background.shape[2]) * background.shape[2]
@@ -124,7 +124,7 @@ if __name__ == '__main__':
         bak, rs, r_av = _radial_symetry(np.array(a), rs, is_fft_shifted = True)
         bak = afnumpy.array(bak)
     d1 = time.time()
-    print d1 - d0
+    print(d1 - d0)
 
     rs = None
     a = np.random.random(shape)
@@ -133,7 +133,7 @@ if __name__ == '__main__':
         bak, rs, r_av = _radial_symetry(a, rs, is_fft_shifted = True)
         bak = bak
     d1 = time.time()
-    print d1 - d0
+    print(d1 - d0)
 
     rs = None
     a = afnumpy.array(a)
@@ -142,4 +142,4 @@ if __name__ == '__main__':
         bak, rs, r_av = radial_symetry_af(a, rs, is_fft_shifted = True)
         bak = bak
     d1 = time.time()
-    print d1 - d0
+    print(d1 - d0)

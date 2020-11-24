@@ -1,8 +1,8 @@
 import numpy as np
 import h5py
 import pyqtgraph as pg
-import io_utils
-import noise
+from . import io_utils
+from . import noise
 import sys, os
 
 sys.path.append(os.path.abspath('.'))

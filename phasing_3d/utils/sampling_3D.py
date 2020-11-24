@@ -97,7 +97,7 @@ def photons_per_speckle(powder, diam = 1./4., z = 1000., lamb = 1.0e-3, rs = Non
     
     # now we have a set of rings centred (presumably) on the speckles
     # let's get the radial sum of the powder pattern
-    i_s = range(0, len(rD), 2)
+    i_s = list(range(0, len(rD), 2))
     phot_per_speckle = np.zeros((len(i_s),), dtype=np.float)
     no = np.zeros((len(i_s),), dtype=np.float)
     for i in i_s :
@@ -112,7 +112,7 @@ def photons_per_speckle(powder, diam = 1./4., z = 1000., lamb = 1.0e-3, rs = Non
             rmin = rD[i-1] 
             rmax = rD[i+1] 
         
-        print rmax, rs.shape, powder.shape
+        print(rmax, rs.shape, powder.shape)
         # get the number of photons in this radial range
         rss    = np.where( (rmin <= rs) * (rs < rmax) )
         #r_sum  = np.bincount(rs[rss], powder[rss].ravel())

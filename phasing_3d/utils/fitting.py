@@ -14,7 +14,7 @@ def fit_oneonr(x, y):
     a = (y[1] - y[0]) / (1./x[1] - 1./x[0])
     c = y[0] - a / x[0]
 
-    print a, c
+    print(a, c)
 
     popt,pcov = curve_fit(oneonr,x,y,p0=[a, c])
 

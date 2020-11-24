@@ -15,7 +15,7 @@ def zero_pad_to_nearest_pow2(diff, shape_new = None):
                 n += 1
             shape_new.append(2**n)
 
-    print '\n reshaping:', diff.shape, '-->', shape_new
+    print('\n reshaping:', diff.shape, '-->', shape_new)
     diff_new = np.zeros(tuple(shape_new), dtype=diff.dtype)
     diff_new[:diff.shape[0], :diff.shape[1], :diff.shape[2]] = diff
 

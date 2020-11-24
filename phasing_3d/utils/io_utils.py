@@ -132,31 +132,31 @@ def write_output_h5(path, diff, diff_ret, support, support_ret, \
 def read_output_h5(path):
     import os, h5py
     f = h5py.File(path, 'r')
-    diff            = f['data'].value
-    diff_ret        = f['data retrieved'].value
-    support         = f['sample support'].value.astype(np.bool)
-    support_ret     = f['sample support retrieved'].value
-    good_pix        = f['good pixels'].value.astype(np.bool)
-    emods           = f['modulus error'].value
-    econs           = f['convergence metric'].value
-    efids           = f['fidelity error'].value
-    solid_unit      = f['sample init'].value
-    solid_units_ret = f['sample retrieved'].value
+    diff            = f['data'][()]
+    diff_ret        = f['data retrieved'][()]
+    support         = f['sample support'][()].astype(np.bool)
+    support_ret     = f['sample support retrieved'][()]
+    good_pix        = f['good pixels'][()].astype(np.bool)
+    emods           = f['modulus error'][()]
+    econs           = f['convergence metric'][()]
+    efids           = f['fidelity error'][()]
+    solid_unit      = f['sample init'][()]
+    solid_units_ret = f['sample retrieved'][()]
     if 'PRTF' in list(f.keys()):
-        T               = f['PRTF'].value
-        T_rav           = f['PRTF radial average'].value
+        T               = f['PRTF'][()]
+        T_rav           = f['PRTF radial average'][()]
     else :
         T = T_rav = None
     if 'PSD' in list(f.keys()):
-        PSD               = f['PSD'].value
-        PSD_rav           = f['PSD data'].value
+        PSD               = f['PSD'][()]
+        PSD_rav           = f['PSD data'][()]
     else :
         PSD = PSD_rav = None
     if 'background radial average' in list(f.keys()):
-        B_rav           = f['background radial average'].value
+        B_rav           = f['background radial average'][()]
     else :
         B_rav = None
-    #config_file    = f['config file'].value
+    #config_file    = f['config file'][()]
 
     f.close()
     
@@ -180,7 +180,7 @@ def write_input_h5(path, diff, support, good_pix, solid_known, config):
     h = ''
     for line in g:
         h += line
-    f.create_dataset('config file', data = np.array(h))
+    f.create_dataset('config file', data = np.array(h.encode()))
     f.close()
     return 
 
@@ -189,16 +189,16 @@ def read_input_h5(fnam):
     import h5py
     
     f = h5py.File(fnam, 'r')
-    diff     = f['data'].value
-    support  = f['sample support'].value.astype(np.bool)
-    good_pix = f['good pixels'].value.astype(np.bool)
+    diff     = f['data'][()]
+    support  = f['sample support'][()].astype(np.bool)
+    good_pix = f['good pixels'][()].astype(np.bool)
     
     if 'sample' in list(f.keys()):
-        solid_known = f['sample'].value
+        solid_known = f['sample'][()]
     else :
         solid_known = None
 
-    config_file = f['config file'].value
+    config_file = f['config file'][...].item().decode()
 
     f.close()
 

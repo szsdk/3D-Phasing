@@ -48,18 +48,18 @@ def out_merge(out, I, good_pix):
         eMod       = comm.gather(eMod, root=0)
         eCon       = comm.gather(eCon, root=0)
         PRTF       = comm.gather(PRTF, root=0)
-        if background is not 0 :
+        if background != 0 :
             background = comm.gather(background, root=0)
         
         if rank == 0 :
             PRTF           = np.abs(np.mean(np.array(PRTF), axis=0))
-            t, t, PRTF_rav = phasing_3d.src.era.radial_symetry(PRTF)
+            t, t, PRTF_rav = phasing_3d.src.mappers.radial_symetry(PRTF)
             
             eMod       = np.array(eMod).reshape((size*eMod[0].shape[0], eMod[0].shape[1]))
             eCon       = np.array(eCon).reshape((size*eCon[0].shape[0], eCon[0].shape[1]))
             O, t       = utils.merge.merge_sols(np.array(O))
             support, t = utils.merge.merge_sols(np.array(support))
-            if background is not 0 :
+            if background != 0 :
                 background = np.mean(np.array(background), axis=0)
     else :
         PRTF = PRTF_rav = None
